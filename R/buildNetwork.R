@@ -72,7 +72,13 @@ defineEIC <- function(xdata) {
     for( i in seq_len(nrow(peaks)) ){
         peak <- peaks[i,]
         posrtmin <- which(rts.xdata == peak["rtmin"])
+        if (length(posrtmin) > 1) {
+          posrtmin <- posrtmin[1]  # 选择第一个匹配的索引
+        }
         posrtmax <- which(rts.xdata == peak["rtmax"])
+        if (length(posrtmax) > 1) {
+          posrtmax <- posrtmax[length(posrtmax)]  # 选择最后一个匹配的索引
+        }
         rangepeak <- seq(posrtmin, posrtmax, by = 1)
         peakint <- unlist(lapply(rangepeak,function(y) {
             mzposc <- which(mzs.xdata[[y]] >= peak["mzmin"])
