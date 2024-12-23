@@ -122,7 +122,7 @@ public:
 };
 
 // Function to initialize network
-Network createNetwork(Rcpp::DataFrame netdf, double exp = 3.5)
+Network createNetwork(Rcpp::DataFrame netdf, double exp = 4)
 {
   Network net;
   net.edges = createEdges(netdf);
