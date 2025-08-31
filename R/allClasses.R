@@ -134,7 +134,18 @@ setMethod("show", "anClique", function(object) {
         message("No adduct annotation")
     }
 })
-
+setMethod("createanClique", "XcmsExperimentHdf5", function(mzdata) {
+    peaklist <- as.data.frame(xcms::chromPeaks(toXcmsExperiment(mzData)))
+    object <- new("anClique",
+    peaklist = peaklist,
+    network = igraph::make_empty_graph(n = 1),
+    cliques = list(),
+    cliquesFound = FALSE,
+    isotopes = data.frame(),
+    isoFound = FALSE,
+    anFound = FALSE)
+    return(object)
+})
 #' @export
 #' @describeIn createanClique Method for 'xcmsSet' object
 setMethod("createanClique", "xcmsSet", function(mzdata) {
